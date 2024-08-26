@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from . info import *
 import os
+import django_heroku
+import dj_database_url
+from decouple import config
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -62,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'geeksforgeeks.urls'
@@ -160,3 +166,5 @@ SECURE_HSTS_PRELOAD = True
 X_FRAME_OPTIONS = 'DENY'
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
+STATICFILES_STORAGE ='whitenoise.storage.CompressdManifestStaticFilesStorage'
+django_heroku.settings(locals())
